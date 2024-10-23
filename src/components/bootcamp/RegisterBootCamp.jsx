@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import bootcampService from '../../services/bootcams/bootcampService';
 
 const RegisterBootCamp = () => {
   // Estado inicial con el JSON proporcionado
@@ -32,10 +33,12 @@ const RegisterBootCamp = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Datos enviados:', data);
     // Aquí puedes hacer algo con los datos, como enviarlos a una API
+    const response = await bootcampService.createBootcamp(data);
+    console.log(response)
   };
 
   return (

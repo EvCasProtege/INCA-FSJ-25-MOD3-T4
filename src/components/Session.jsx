@@ -7,13 +7,23 @@ export const Session = () => {
     // useState para determinar el tipo de formulario a mostrar
     const [typeForm, setTypeForm] = useState("login");
 
+    if(localStorage.getItem("authToken")){
+        return (
+            <>
+            { true ? <>
+            <button onClick={console.log("Cerrar cesión")}>Cerrar sesion</button>
+            </>
+            : <Link to="/registro">Registro de Bootcamp</Link> }
+              
+          </>
+        )
+    }
     return (
         <>
             <Link to="/">Regresar</Link>
             <br />
             <button onClick={() => setTypeForm("login")}>Iniciar Sesión</button>
             <button onClick={() => setTypeForm("signup")}>Registrarse</button>
-            <button onClick={() => setTypeForm("regboot")}>Registra Bootcamp</button>
             {/* Renderizado Condicional */}
             {typeForm === "login" ? <LoginForm /> : <RegisterForm />}
             
