@@ -1,12 +1,15 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import authService from "../../services/auth/authService";
 
 export const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
 
     const onSubmit = async (data) => {
         const response = await authService.login(data);
         console.log("Inicio de sesión exitoso:", response);
+        navigate("/registro");
     };
 
     return (
