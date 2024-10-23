@@ -1,8 +1,7 @@
-// axiosConfig.js
-import axios from 'axios';
+import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: 'https://tu-api.com/api', // Cambia esto a la URL de tu API
+    baseURL: "http://localhost:5000/api/",
 });
 
 export default axiosInstance;

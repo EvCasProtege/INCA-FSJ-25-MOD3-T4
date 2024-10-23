@@ -1,15 +1,17 @@
-// authService.js
-import axiosInstance from '../axiosConfig';
+import axiosInstance from "../axiosConfig";
+
+const login = async (data) => {
+  try {
+    const response = await axiosInstance.post("auth/login", data);
+    localStorage.setItem("authToken", response.data.token);
+    return response.data;
+  } catch (error) {
+    console.error("Error al iniciar sesión:", error);
+  }
+};
 
 const authService = {
-  login: async (username, password) => {
-    const response = await axiosInstance.post('/login', { username, password });
-    return response.data; // Aquí recibirás el JWT
-  },
-  register: async (username, password) => {
-    const response = await axiosInstance.post('/register', { username, password });
-    return response.data;
-  },
+  login,
 };
 
 export default authService;
