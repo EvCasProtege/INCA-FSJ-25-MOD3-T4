@@ -1,5 +1,3 @@
-// src/components/auth/RegisterForm.jsx
-import React from "react";
 import { useForm } from "react-hook-form";
 import authService from "../../services/auth/authService";
 
