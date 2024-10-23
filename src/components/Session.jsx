@@ -13,8 +13,10 @@ export const Session = () => {
             <br />
             <button onClick={() => setTypeForm("login")}>Iniciar Sesión</button>
             <button onClick={() => setTypeForm("signup")}>Registrarse</button>
+            <button onClick={() => setTypeForm("regboot")}>Registra Bootcamp</button>
             {/* Renderizado Condicional */}
             {typeForm === "login" ? <LoginForm /> : <RegisterForm />}
+            
         </>
     );
 };
