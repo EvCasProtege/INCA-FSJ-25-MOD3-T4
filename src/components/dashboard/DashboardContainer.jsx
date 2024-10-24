@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import bootcampService from '../../services/bootcams/bootcampService';
 import { processBootcampData } from '../../utils/utils';
 import DashboardComponent from './Dashboard';
+import { Link } from 'react-router-dom';
 
 const DashboardContainer = () => {
   const [labels, setLabels] = useState([]);
@@ -31,7 +32,10 @@ const DashboardContainer = () => {
       {loading ? (
         <p>Cargando datos...</p>
       ) : (
-        <DashboardComponent labels={labels} counts={counts} />
+        <>
+          <Link to="/">Regresar</Link>
+          <DashboardComponent labels={labels} counts={counts} />
+        </>        
       )}
     </div>
   );
