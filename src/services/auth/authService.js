@@ -17,9 +17,14 @@ const register = async (data) => {
     return response.data;
 };
 
+const isAuthenticated = () => {
+    return !!localStorage.getItem('authToken');
+  };
+
 const authService = {
     login,
     register,
+    isAuthenticated,
 };
 
 export default authService;

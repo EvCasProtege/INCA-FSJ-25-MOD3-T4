@@ -2,7 +2,7 @@ import axiosInstance from "../axiosConfig";
 
 const bootcampService = {
   getBootcamps: async () => {
-    const response = await axiosInstance.get('/auth/bootcamps');
+    const response = await axiosInstance.get('/auth/bootcamps/all');
     return response.data;
   },
   createBootcamp: async (bootcamp) => {
