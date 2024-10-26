@@ -1,14 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import bootcampService from '../../services/bootcams/bootcampService';
-import { Link } from 'react-router-dom';
 
-const RegisterBootCamp = () => {
-  // Estado inicial con el JSON proporcionado
+const EditBootCamp = () => {
+  const { id } = useParams();
   const [data, setData] = useState({
-    name: 'nombre',
-    description: 'Descripción',
-    technologies: ['tecnología1', 'tecnología2'],
+    name: '',
+    description: '',
+    technologies: [],
   });
+
+  useEffect(() => {
+    const fetchBootcamp = async () => {
+      const response = await bootcampService.getBootcampById(id);
+      setData(response);
+    };
+
+    fetchBootcamp();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,17 +45,16 @@ const RegisterBootCamp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Datos enviados:', data);
+    console.log('Datos actualizados:', data);
     // Aquí puedes hacer algo con los datos, como enviarlos a una API
-    const response = await bootcampService.createBootcamp(data);
-    console.log(response)
+    const response = await bootcampService.updateBootcamp(id, data);
+    console.log(response);
     navigator.navigate('/home');
   };
 
   return (
     <div>
-      <Link to="/home">Home</Link>
-      <h2>Datos del Proyecto</h2>
+      <h2>Editar Bootcamp</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nombre:</label>
@@ -79,11 +87,11 @@ const RegisterBootCamp = () => {
             Agregar Tecnología
           </button>
         </div>
-        <button type="submit">Guardar</button>
+        <button type="submit">Actualizar</button>
       </form>
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 };
 
-export default RegisterBootCamp;
+export default EditBootCamp;

@@ -1,4 +1,3 @@
-// DashboardContainer.js
 import { useEffect, useState } from 'react';
 import bootcampService from '../../services/bootcams/bootcampService';
 import { processBootcampData } from '../../utils/utils';
