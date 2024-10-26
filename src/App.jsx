@@ -1,13 +1,17 @@
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes, Link, BrowserRouter } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Session } from "./components/Session";
-import "./assets/css/App.css";
+//import "./assets/css/App.css";
 import RegisterBootCamp from "./components/bootcamp/RegisterBootCamp";
 import LogoutButton from "./components/auth/LogoutButton";
 import UserComponent from "./components/auth/User";
 import DashboardContainer from "./components/dashboard/DashboardContainer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { tokenService } from "./services/auth/tokenService";
+import Navbar from "./components/landing/Navbar";
+import Info from "./components/landing/info";
+import Cards from "./components/landing/Cards"
 
 export default function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,10 +23,15 @@ export default function App() {
 
     return (
         <div className="App">
-            <Router>
+           
+       
+        <Router>
                 {isLoggedIn && <LogoutButton />} {/* Mostrar LogoutButton solo si está logueado */}
                 {isLoggedIn && <Link to="/">Regresar</Link>} {/* Mostrar Regresar solo si está logueado */}
-                <Routes>
+                 <Navbar/>
+             <Info />
+             <Cards />
+            <Routes>
                     <Route path="/" element={<Session />} />
                     <Route path="/registro" element={<RegisterBootCamp />} />
 
@@ -46,5 +55,7 @@ export default function App() {
                 </Routes>
             </Router>
         </div>
+        
+        
     );
 }
