@@ -1,30 +1,21 @@
-import { useEffect, useState } from 'react';
-import bootcampService from '../../services/bootcams/bootcampService';
+import { useContext, useEffect, useState } from 'react';
+import { BootcampContext } from '../../provider/BootcampContext';
 import { processBootcampData } from '../../utils/utils';
 import DashboardComponent from './Dashboard';
 import { Link } from 'react-router-dom';
 
 const DashboardContainer = () => {
+  const { bootcamps } = useContext(BootcampContext);
   const [labels, setLabels] = useState([]);
   const [counts, setCounts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchBootcamps = async () => {
-      try {
-        const data = await bootcampService.getBootcamps();
-        const { labels, counts } = processBootcampData(data);
-        setLabels(labels);
-        setCounts(counts);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching bootcamps:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchBootcamps();
-  }, []);
+    const { labels, counts } = processBootcampData(bootcamps);
+    setLabels(labels);
+    setCounts(counts);
+    setLoading(false);
+  }, [bootcamps]);
 
   return (
     <div>

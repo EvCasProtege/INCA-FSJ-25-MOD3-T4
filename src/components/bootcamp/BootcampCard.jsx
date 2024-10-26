@@ -1,32 +1,24 @@
-import { useEffect, useState } from 'react';
-import { useNavigate  } from 'react-router-dom';
-import bootcampService from '../../services/bootcams/bootcampService';
+import { useContext } from 'react';
+import { BootcampContext } from '../../provider/BootcampContext';
+import { useNavigate } from 'react-router-dom';
 import '../../assets/css/bootcamps.css';
 
 const BootcampCard = () => {
-  const [bootcamps, setBootcamps] = useState([]);
+  const { bootcamps, deleteBootcamp } = useContext(BootcampContext);
   const navigate = useNavigate();
-  useEffect(() => {
-    const fetchBootcamps = async () => {
-      const response = await bootcampService.getBootcamps();
-      setBootcamps(response);
-    };
 
-    fetchBootcamps();
-  }, []);
 
   const handleEdit = (id) => {
     navigate(`/edit-bootcamp/${id}`);
   };
 
   const handleDelete = async (id) => {
-    await bootcampService.deleteBootcamp(id);
-    setBootcamps(bootcamps.filter(bootcamp => bootcamp.id !== id));
+    deleteBootcamp(id);
   };
 
   return (
     <div className="bootcamp-container">
-      {bootcamps.map((bootcamp) => (
+      {bootcamps.filter(bootcamp => bootcamp.active).map((bootcamp) => (
         <div key={bootcamp.id} className="bootcamp-card">
           <h3>{bootcamp.name}</h3>
           <p>{bootcamp.description}</p>
