@@ -2,6 +2,7 @@ import { useState } from "react";
 import { LoginForm } from "./auth/LoginForm";
 import { RegisterForm } from "./auth/RegisterForm";
 import { Link } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const Session = () => {
     // useState para determinar el tipo de formulario a mostrar
@@ -9,7 +10,7 @@ export const Session = () => {
 
     return (
         <>
-            <Link to="/">Regresar</Link>
+            <ProtectedRoute><Link to="/home">Home</Link></ProtectedRoute> 
             <br />
             <button onClick={() => setTypeForm("login")}>Iniciar Sesión</button>
             <button onClick={() => setTypeForm("signup")}>Registrarse</button>

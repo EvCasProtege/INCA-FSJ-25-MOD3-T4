@@ -7,9 +7,13 @@ export const LoginForm = () => {
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
+        try {
         const response = await authService.login(data);
-        console.log("Inicio de sesión exitoso:", response);
-        navigate("/registro");
+        console.log("Inicio de sesión exitoso esto respondio:", response);
+        navigate("/home");
+        } catch (error) {
+            console.error("Error en el inicio de sesión:", error);
+        }
     };
 
     return (
