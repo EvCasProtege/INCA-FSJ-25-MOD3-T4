@@ -1,9 +1,10 @@
 import axiosInstance from "../axiosConfig";
+import { tokenService } from "./tokenService";
 
 const login = async (data) => {
     try {
         const response = await axiosInstance.post("auth/login", data);
-        localStorage.setItem("authToken", response.data.token);
+        tokenService.saveToken(response.data.token);
 
         return response.data;
     } catch (error) {
@@ -18,13 +19,18 @@ const register = async (data) => {
 };
 
 const isAuthenticated = () => {
-    return !!localStorage.getItem('authToken');
-  };
+    return !!tokenService.getToken();
+};
+
+const logout = () => {
+    tokenService.removeToken();
+};
 
 const authService = {
     login,
     register,
     isAuthenticated,
+    logout,
 };
 
 export default authService;

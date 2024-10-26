@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
+import { tokenService } from '../../services/auth/tokenService';
 
 const LogoutButton = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('authToken'); // Eliminar el token del almacenamiento local
+    tokenService.removeToken(); // Eliminar el token del almacenamiento local
     navigate('/'); // Redirigir a la página de inicio de sesión
   };
 
