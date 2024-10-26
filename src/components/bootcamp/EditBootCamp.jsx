@@ -49,7 +49,11 @@ const EditBootCamp = () => {
     // Aquí puedes hacer algo con los datos, como enviarlos a una API
     const response = await bootcampService.updateBootcamp(id, data);
     console.log(response);
-    navigator.navigate('/home');
+    if(response.status === 201) {
+      navigator.navigate('/home');
+    }else{  
+      alert('Error al actualizar bootcamp')
+    }
   };
 
   return (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate  } from 'react-router-dom';
 import bootcampService from '../../services/bootcams/bootcampService';
-import '../../assets/css/bootcamps.css'; // Asegúrate de crear este archivo CSS
+import '../../assets/css/bootcamps.css';
 
 const BootcampCard = () => {
   const [bootcamps, setBootcamps] = useState([]);

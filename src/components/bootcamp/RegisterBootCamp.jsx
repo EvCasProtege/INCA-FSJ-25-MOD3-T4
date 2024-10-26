@@ -40,7 +40,11 @@ const RegisterBootCamp = () => {
     // Aquí puedes hacer algo con los datos, como enviarlos a una API
     const response = await bootcampService.createBootcamp(data);
     console.log(response)
-    navigator.navigate('/home');
+    if(response.status === 201) {
+      navigator.navigate('/home');
+    }else{  
+      alert('Error al crear bootcamp')
+    }
   };
 
   return (
