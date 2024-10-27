@@ -8,7 +8,7 @@ export const Session = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-900">
+        <div className="min-h-screen flex items-center justify-center">
             <div className="max-w-md w-full bg-gray-800 rounded-lg shadow-lg p-8">
                 <h2 className="text-3xl font-bold text-center text-[#04dbde] mb-8">
                     {typeForm === "login" ? "Iniciar Sesión" : "Registro"}

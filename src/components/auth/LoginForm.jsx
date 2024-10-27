@@ -17,7 +17,8 @@ export const LoginForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 items-center">
             <div>
                 <label htmlFor="username" className="block text-sm font-medium text-gray-700">
                     Username
