@@ -9,6 +9,8 @@ import RegisterBootCamp from "./components/bootcamp/RegisterBootCamp";
 import DashboardContainer from "./components/dashboard/DashboardContainer";
 import UserComponent from "./components/auth/User";
 import { LandingPage } from "./components/landing/LandingPage";
+import EditBootCamp from "./components/bootcamp/EditBootCamp";
+import Home from "./components/bootcamp/Home";
 
 export default function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
