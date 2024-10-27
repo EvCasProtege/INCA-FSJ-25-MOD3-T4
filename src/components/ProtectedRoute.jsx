@@ -1,12 +1,16 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import authService from '../services/auth/authService';
 
-// eslint-disable-next-line react/prop-types
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children, redirectTo = '/' }) => {
+  const location = useLocation();
+
+  // Verifica si existe un token de autenticación
   if (!authService.isAuthenticated()) {
-    return <Navigate to="/" />;
+    // Guardar la ubicación actual para redirigir después del login
+    return <Navigate to={redirectTo} state={{ from: location.pathname }} replace />;
   }
 
+  // Si está autenticado, renderizar los children
   return children;
 };
 
