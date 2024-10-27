@@ -25,6 +25,7 @@ export default function App() {
             <Routes>
                 {/* Rutas Públicas */}
                 <Route path="/" element={<Session />} />
+                <Route path="/home" element={<Home  />} />
 
                 {/* Rutas Protegidas */}
                 <Route
@@ -56,6 +57,14 @@ export default function App() {
                     element={
                         <ProtectedRoute redirectTo="/">
                             <LandingPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/edit-bootcamp/:id"
+                    element={
+                        <ProtectedRoute redirectTo="/">
+                            <EditBootCamp />
                         </ProtectedRoute>
                     }
                 />

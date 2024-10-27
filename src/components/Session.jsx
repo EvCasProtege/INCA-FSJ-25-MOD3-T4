@@ -17,7 +17,7 @@ export const Session = () => {
                 <div className="space-y-6">
                     {typeForm === "login" ? (
                         <>
-                            <LoginForm onSuccess={() => navigate('/dashboard')} />
+                            <LoginForm onSuccess={() => navigate("/landing")} />
                             <p className="text-center text-gray-300">
                                 ¿No tienes cuenta?{" "}
                                 <button

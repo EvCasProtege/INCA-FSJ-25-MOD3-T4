@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import authService from "../../services/auth/authService";
 
-export const RegisterForm = () => {
+export const RegisterForm = ({ onSuccess }) => {
     const {
         register,
         handleSubmit,
@@ -14,6 +14,7 @@ export const RegisterForm = () => {
     const onSubmit = async (data) => {
         try {
             await authService.register(data);
+            onSuccess();
         } catch (error) {
             setErrorMessage(error.message);
         }

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import authService from "../../services/auth/authService";
 
-export const LoginForm = () => {
+export const LoginForm = ({ onSuccess }) => {
     const {
         register,
         handleSubmit,
@@ -17,7 +17,7 @@ export const LoginForm = () => {
     const onSubmit = async (data) => {
         try {
             await authService.login(data);
-            navigate("/landing");
+            onSuccess();
         } catch (error) {
             setErrorMessage(error.message);
         }
