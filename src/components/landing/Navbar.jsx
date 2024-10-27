@@ -18,10 +18,11 @@ const Navbar = () => {
             <div className='flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4  text-white'>
                 <h1 className='w-full text-3xl font-bold text-[#2eadaf]'> Code Education</h1>
                 <ul className='hidden md:flex'>
-                    <NavLink to="/landing" activeClassName="active-link"> <li className='p-4 border-b border-gray-600'>Inicio</li></NavLink>
-                    <NavLink to="/registro"><li className='p-4 border-b border-gray-600'>Usuarios</li></NavLink>
-                    <NavLink to="/home"><li className='p-4 border-b border-gray-600 '>BootCamps</li></NavLink>
-                    <NavLink to="/DashboardContainer"><li className='p-4 border-b border-gray-600'>Dashboard</li></NavLink>
+                    <NavLink to="/landing" activeClassName="active-link"> <li className='p-4 border-b border-gray-600 hover:text-[#2eadaf] '>Inicio</li></NavLink>
+                    <NavLink to="/registro"><li className='p-4 border-b border-gray-600 hover:bg-gray-700  hover:text-[#2eadaf]'>Usuarios</li></NavLink>
+                    <NavLink to="/home"><li className='p-4 border-b border-gray-600 hover:bg-gray-700  hover:text-[#2eadaf] '>BootCamps</li></NavLink>
+                    <NavLink to="/DashboardContainer"><li className='p-4 border-b border-gray-600 hover:bg-gray-700  hover:text-[#2eadaf]'>Dashboard</li></NavLink>
+                    <NavLink to="/"><li className='p-4 border-b border-red-500 hover:bg-gray-700 hover:text-[#c9f94e] '>Cerrar Sesion</li></NavLink>
                 </ul>
 
                 <div onClick={handleNav} className='block md:hidden'>
