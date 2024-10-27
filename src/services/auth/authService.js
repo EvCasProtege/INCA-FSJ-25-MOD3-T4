@@ -8,14 +8,18 @@ const login = async (data) => {
 
         return response.data;
     } catch (error) {
-        console.error("Error al iniciar sesión:", error);
+        throw new Error("Credenciales inválidas");
     }
 };
 
 const register = async (data) => {
-    const response = await axiosInstance.post("auth/register", data);
-
-    return response.data;
+    try {
+        const response = await axiosInstance.post("auth/register", data);
+    
+        return response.data;
+    } catch (error) {
+        throw new Error("El nombre de usuario ya está en uso")
+    }
 };
 
 const isAuthenticated = () => {

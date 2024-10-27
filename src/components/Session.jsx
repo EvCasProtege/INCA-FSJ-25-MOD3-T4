@@ -10,7 +10,7 @@ export const Session = () => {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-900">
             <div className="max-w-md w-full bg-gray-800 rounded-lg shadow-lg p-8">
-                <h2 className="text-3xl font-bold text-center text-[#04dbde] mb-8">
+                <h2 className="text-3xl font-bold text-center text-teal-400 mb-8">
                     {typeForm === "login" ? "Iniciar Sesión" : "Registro"}
                 </h2>
                 
@@ -22,7 +22,7 @@ export const Session = () => {
                                 ¿No tienes cuenta?{" "}
                                 <button
                                     onClick={() => setTypeForm("signup")}
-                                    className="text-[#04dbde] hover:underline"
+                                    className="text-teal-400 hover:underline"
                                 >
                                     Regístrate
                                 </button>
@@ -35,7 +35,7 @@ export const Session = () => {
                                 ¿Ya tienes cuenta?{" "}
                                 <button
                                     onClick={() => setTypeForm("login")}
-                                    className="text-[#04dbde] hover:underline"
+                                    className="text-teal-400 hover:underline"
                                 >
                                     Inicia Sesión
                                 </button>

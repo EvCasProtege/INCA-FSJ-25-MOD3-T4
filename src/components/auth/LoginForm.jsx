@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import authService from "../../services/auth/authService";
 
 export const LoginForm = () => {
@@ -8,19 +9,25 @@ export const LoginForm = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
+
     const navigate = useNavigate();
 
+    const [errorMessage, setErrorMessage] = useState("");
+
     const onSubmit = async (data) => {
-        const response = await authService.login(data);
-        console.log("Inicio de sesión exitoso:", response);
-        navigate("/dashboard"); // Redirigir a la ruta de dashboard tras login exitoso
+        try {
+            await authService.login(data);
+            navigate("/landing");
+        } catch (error) {
+            setErrorMessage(error.message);
+        }
     };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div>
-                <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                    Username
+                <label htmlFor="username" className="block text-sm font-medium text-gray-300">
+                    Usuario
                 </label>
                 <div className="mt-1">
                     <input
@@ -33,7 +40,7 @@ export const LoginForm = () => {
                 {errors.username && <p className="mt-2 text-sm text-red-600">{errors.username.message}</p>}
             </div>
             <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-300">
                     Contraseña
                 </label>
                 <div className="mt-1">
@@ -47,9 +54,10 @@ export const LoginForm = () => {
                 {errors.password && <p className="mt-2 text-sm text-red-600">{errors.password.message}</p>}
             </div>
             <div>
+                {errorMessage && <div className="mt-2 text-sm text-red-600 text-center">{errorMessage}</div>}
                 <button
                     type="submit"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300"
                 >
                     Iniciar Sesión
                 </button>
