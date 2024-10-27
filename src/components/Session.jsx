@@ -9,7 +9,7 @@ export const Session = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen flex items-center justify-center">
+        <div className="min-h-screen flex items-center justify-center bg-gray-900">
             <div className="max-w-md w-full bg-gray-800 rounded-lg shadow-lg p-8">
                 <img src={codeEducationLogo} alt="code-education-logo" className="mx-auto w-20 h-auto" />
 
