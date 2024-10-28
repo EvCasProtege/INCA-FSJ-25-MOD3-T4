@@ -32,7 +32,9 @@ export default function App() {
                     path="/dashboard"
                     element={
                         <ProtectedRoute redirectTo="/login">
-                            <DashboardContainer />
+                            <BootcampProvider>
+                                <DashboardContainer />
+                            </BootcampProvider>                            
                         </ProtectedRoute>
                     }
                 />
@@ -76,7 +78,9 @@ export default function App() {
                     path="/edit-bootcamp/:id"
                     element={
                         <ProtectedRoute redirectTo="/login">
-                            <EditBootCamp />
+                            <BootcampProvider>
+                                <EditBootCamp />
+                            </BootcampProvider>                           
                         </ProtectedRoute>
                     }
                 />
