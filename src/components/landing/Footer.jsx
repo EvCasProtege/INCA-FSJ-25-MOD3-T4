@@ -1,15 +1,20 @@
-import React from 'react'
-import {
-  FaDribbble,
-  FaDribbbleSquare,
-  FaFacebook,
-  FaFacebookSquare,
-  FaGithubSquare,
-  FaInstagram,
-  FaTwitterSquare
-} from 'react-icons/fa'
+import { useContext } from 'react'
+import { FaDribbble,
+    FaDribbbleSquare,
+FaFacebook,
+FaFacebookSquare,
+FaGithubSquare,
+FaInstagram,
+FaTwitterSquare
+ } from 'react-icons/fa'
+import { BootcampContext } from '../../provider/BootcampContext';
 
-export const Footer = () => {
+ export const Footer = () => {
+
+  const { bootcamps } = useContext(BootcampContext);
+
+  const activeBootcamps = bootcamps.filter((bootcamp) => bootcamp.active);
+
   return (
     <div className='max-w-[1240px] mx-auto py-16 px-4 grid lg:grid-cols-3 gap-8 text-gray-300'>
       <div>
@@ -28,9 +33,13 @@ export const Footer = () => {
           <div>
             <h6 className='font-medium text-gray-400'> Bootcamps</h6>
             <ul>
-              <li className='py-2 text-sm'>Java Developer</li>
-              <li className='py-2 text-sm'>Full Stack Junior</li>
-              <li className='py-2 text-sm'>Data Analytics</li>
+              { activeBootcamps.length > 0 ? (
+                  activeBootcamps.map((bootcamps) => (
+                    <li key={bootcamps.id} className='py-2 text-sm'>{bootcamps.name}</li>
+                  ))
+              ) : (
+                  <p className="text-center text-white">No hay bootcamps disponibles.</p>
+              )}
             </ul>
           </div>
           <div>
@@ -60,5 +69,3 @@ export const Footer = () => {
    
   )
 }
-
-//export default Footer
