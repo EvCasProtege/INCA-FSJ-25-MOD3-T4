@@ -1,17 +1,29 @@
 import { useState } from 'react';
+import { useForm } from "react-hook-form";
 import bootcampService from '../../services/bootcams/bootcampService';
+import { useNavigate } from 'react-router-dom';
+import { AiOutlineDelete } from "react-icons/ai";
 import { Navbar } from '../landing/Navbar';
 import { UserComponent } from '../UserComponent';
-import { useNavigate } from 'react-router-dom';
+import { Footer } from '../landing/Footer';
 
 const RegisterBootCamp = () => {
-  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+} = useForm();
 
   const [data, setData] = useState({
     name: '',
     description: '',
-    technologies: [],
+    technologies: [''],
   });
+
+  const navigate = useNavigate();
+
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,86 +57,82 @@ const RegisterBootCamp = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    if (!data.name || !data.description || data.technologies.length === 0 || data.technologies.some(tech => !tech)) {
-      alert('Todos los campos son obligatorios y debe haber al menos una tecnología.');
-      return;
-    }
-    console.log('Datos enviados:', data);
+    setError('');
     try {
-      const response = await bootcampService.createBootcamp(data);
-      if (response.status === 200) {
-        navigate('/bootcamps');
-      }
+      await bootcampService.createBootcamp(data);
+      navigate('/bootcamps');
     } catch (err) {
-      console.log(err);
-      err.response.data.message && alert(err.response.data.message);
+      setError(err.message);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-gray-900 text-white">
       <Navbar />
       <UserComponent />
-      <h2 className="text-2xl font-bold mb-4">Datos del Proyecto</h2>
-      <form onSubmit={handleSubmit} className="w-full max-w-lg">
-        <div className="mb-4">
-          <label className="block text-gray-300 text-sm font-bold mb-2">Nombre:</label>
-          <input
-            type="text"
-            name="name"
-            value={data.name}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-300 text-sm font-bold mb-2">Descripción:</label>
-          <textarea
-            name="description"
-            value={data.description}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-300 text-sm font-bold mb-2">Tecnologías:</label>
-          {data.technologies.map((tech, index) => (
-            <div key={index} className="flex items-center mb-2">
-              <input
-                type="text"
-                value={tech}
-                onChange={(e) => handleTechnologyChange(index, e.target.value)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
-              />
-              <button
-                type="button"
-                onClick={() => removeTechnology(index)}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
-              >
-                Quitar
-              </button>
-            </div>
-          ))}
-          <button
-            type="button"
-            onClick={addTechnology}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Agregar Tecnología
-          </button>
-        </div>
-        <button
-          type="submit"
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Guardar
-        </button>
-      </form>
+      <div className="py-20 bg-gray-800">
+        <h2 className='text-3xl font-bold text-center mb-12'>Añadir un Nuevo Bootcamp</h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm mx-auto">
+          <div className='mb-5'>
+            <label className="block text-sm font-medium text-gray-300">Nombre:</label>
+            <input
+              id='name'
+              type="text"
+              name="name"
+              placeholder='Ej. Desarrollo Web con ReactJS'
+              value={data.name}
+              {...register("name", { required: "El nombre del bootcamp requerido." })}
+              onChange={handleChange}
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+
+            />
+            {errors.name && <p className="mt-2 text-sm text-red-600 text-center">{errors.name.message}</p>}
+          </div>
+          <div className='mb-5' >
+            <label className="block text-sm font-medium text-gray-300">Descripción:</label>
+            <textarea
+              id='description'
+              name="description"
+              placeholder='Descripción del Bootcamp'
+              value={data.description}
+              {...register("description", { required: "Debes agregar una descripción para el bootcamp" })}
+              onChange={handleChange}
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+            {errors.description && <p className="mt-2 text-sm text-red-600 text-center">{errors.description.message}</p>}
+          </div>
+          <div className="mb-5">
+            <label className="block mb-5 text-sm font-medium text-gray-300">Tecnologías:</label>
+            {data.technologies.map((tech, index) => (
+                <div key={index} className="flex items-center mb-4">
+                    <input
+                        id='technology'
+                        type="text"
+                        placeholder='Ej. JavaScript'
+                        value={tech}
+                        {...register("technology", { required: "Debes agregar al menos una tecnología." })}
+                        onChange={(e) => handleTechnologyChange(index, e.target.value)}
+                        className="flex-grow p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                    <button type="button" onClick={() => removeTechnology(index)} className="ml-2 text-red-500 hover:text-red-700" aria-label="Eliminar tecnología">
+                        <AiOutlineDelete size={20} />
+                    </button>
+                </div>
+            ))}
+            <button type="button" className="mt-2 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2eadaf]" onClick={addTechnology}>
+                Añadir tecnología
+            </button>
+            {errors.technology && <p className="mt-2 text-sm text-red-600 text-center">{errors.technology.message}</p>}
+          </div>
+          <div>
+            {error && <div className="mt-2 text-sm text-red-600 text-center">{error}</div>}
+            <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#2eadaf] hover:bg-[#1c8a8c] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2eadaf]">Crear Bootcamp</button>
+          </div>
+        </form>
+      </div>
+      <Footer />
     </div>
   );
 };

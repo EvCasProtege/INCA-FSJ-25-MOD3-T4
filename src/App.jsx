@@ -6,7 +6,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 // Components
 import { Session } from "./components/Session";
 import RegisterBootCamp from "./components/bootcamp/RegisterBootCamp";
-import DashboardContainer from "./components/dashboard/DashboardContainer";
+import { DashboardContainer } from "./components/dashboard/DashboardContainer";
 import { UserComponent } from "./components/UserComponent";
 import { LandingPage } from "./components/landing/LandingPage";
 import EditBootCamp from "./components/bootcamp/EditBootCamp";
@@ -34,7 +34,7 @@ export default function App() {
                         <ProtectedRoute redirectTo="/login">
                             <BootcampProvider>
                                 <DashboardContainer />
-                            </BootcampProvider>                            
+                            </BootcampProvider>
                         </ProtectedRoute>
                     }
                 />
@@ -42,7 +42,9 @@ export default function App() {
                     path="/registro"
                     element={
                         <ProtectedRoute redirectTo="/login">
-                            <RegisterBootCamp />
+                            <BootcampProvider>
+                                <RegisterBootCamp />
+                            </BootcampProvider>
                         </ProtectedRoute>
                     }
                 />
