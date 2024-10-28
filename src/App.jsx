@@ -80,7 +80,9 @@ export default function App() {
                     path="/edit-bootcamp/:id"
                     element={
                         <ProtectedRoute redirectTo="/login">
-                            <EditBootCamp />
+                            <BootcampProvider>
+                                <EditBootCamp />
+                            </BootcampProvider>                           
                         </ProtectedRoute>
                     }
                 />
