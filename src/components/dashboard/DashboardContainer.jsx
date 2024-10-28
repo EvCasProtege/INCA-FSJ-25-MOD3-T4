@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { BootcampContext } from '../../provider/BootcampContext';
 import { processBootcampData } from '../../utils/utils';
 import DashboardComponent from './Dashboard';
-import { Link } from 'react-router-dom';
+import { Navbar } from '../landing/Navbar';
+import { UserComponent } from '../UserComponent';
 
 const DashboardContainer = () => {
   const { bootcamps } = useContext(BootcampContext);
@@ -23,8 +24,11 @@ const DashboardContainer = () => {
         <p>Cargando datos...</p>
       ) : (
         <>
-          <Link to="/">Regresar</Link>
+         <div className="min-h-screen bg-gray-900 text-white">
+          <Navbar />
+          <UserComponent />
           <DashboardComponent labels={labels} counts={counts} />
+          </div>
         </>        
       )}
     </div>

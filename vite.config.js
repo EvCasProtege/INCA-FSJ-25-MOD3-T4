@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'https://vercel-deploy-production-8e02.up.railway.app',
         changeOrigin: true,
         ws: true,
           // eslint-disable-next-line no-unused-vars

@@ -20,7 +20,7 @@ const DashboardComponent = ({ labels, counts }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
       <h2 className="text-2xl font-bold mb-4">Dashboard de Tecnologías en Cursos Activos</h2>
       <div className="w-full max-w-4xl">
         <Bar data={chartData} options={{ scales: { y: { beginAtZero: true } } }} />

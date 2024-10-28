@@ -7,11 +7,11 @@ const bootcampService = {
   },
   createBootcamp: async (bootcamp) => {
     const response = await axiosInstance.post('/auth/bootcamps/create', bootcamp);
-    return response.data;
+    return response;
   },
   updateBootcamp: async (id, bootcamp) => {
     const response = await axiosInstance.put(`/auth/bootcamps/update/${id}`, bootcamp);
-    return response.data;
+    return response;
   },
   deleteBootcamp: async (id) => {
     const response = await axiosInstance.delete(`/auth/bootcamps/delete/${id}`);
