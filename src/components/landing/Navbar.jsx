@@ -20,7 +20,6 @@ export const Navbar = () => {
                     <h1 className=' text-3xl font-bold text-[#2eadaf]'> Code Education</h1>
                     <nav className="hidden md:flex space-x-4">
                         <NavLink to="/inicio" className="text-white hover:text-[#2eadaf] px-3 py-2 rounded-md text-sm font-medium" activeClassName="bg-gray-700 text-[#2eadaf]">Inicio</NavLink>
-                        <NavLink to="/registro" className="text-white hover:text-[#2eadaf] px-3 py-2 rounded-md text-sm font-medium" activeClassName="bg-gray-700 text-[#2eadaf]">Usuarios</NavLink>
                         <NavLink to="/bootcamps" className="text-white hover:text-[#2eadaf] px-3 py-2 rounded-md text-sm font-medium" activeClassName="bg-gray-700 text-[#2eadaf]">BootCamps</NavLink>
                         <NavLink to="/DashboardContainer" className="text-white hover:text-[#2eadaf] px-3 py-2 rounded-md text-sm font-medium" activeClassName="bg-gray-700 text-[#2eadaf]">Dashboard</NavLink>
                         <NavLink to="/login" className="text-white px-3 py-2 rounded-md text-sm font-medium bg-red-600 hover:bg-red-700">Cerrar Sesion</NavLink>

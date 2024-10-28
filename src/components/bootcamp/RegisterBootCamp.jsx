@@ -40,55 +40,68 @@ const RegisterBootCamp = () => {
     // Aquí puedes hacer algo con los datos, como enviarlos a una API
     const response = await bootcampService.createBootcamp(data);
     console.log(response)
-    if(response.status === 201) {
+    if (response.status === 201) {
       navigator.navigate('/home');
-    }else{  
+    } else {
       alert('Error al crear bootcamp')
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white ">
-      <Link to="/home">Home</Link>
-      <h2>Datos del Proyecto</h2>
-      <form onSubmit={handleSubmit}  className="space-y-6 items-center">
-        <div>
-          <label className="block text-sm font-medium text-gray-300">Nombre:</label>
-          <input
-            type="text"
-            name="name"
-            value={data.name}
-            onChange={handleChange}
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
+    <div className="min-h-screen  bg-gray-900 text-white ">
+      <div className="">
+        <div className='p-6'>
+          <nav className="hidden md:flex space-x-4">
+            <Link to="/inicio" className="text-white hover:text-[#2eadaf] px-3 py-2 rounded-md text-sm font-medium" activeClassName="bg-gray-700 text-[#2eadaf]">Home</Link>
+          </nav>
+          <h2 className='text-3xl font-bold text-center mb-12'>Datos del Proyecto</h2>
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300">Descripción:</label>
-          <textarea
-            name="description"
-            value={data.description}
-            onChange={handleChange}
-            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300">Tecnologías:</label>
-          {data.technologies.map((tech, index) => (
+        <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
+          <div className='mb-5'>
+            <label className="block text-sm font-medium text-gray-300">Nombre:</label>
             <input
-              key={index}
               type="text"
-              value={tech}
-              onChange={(e) => handleTechnologyChange(index, e.target.value)}
-               
+              name="name"
+              value={data.name}
+              onChange={handleChange}
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+
             />
-          ))}
-          <button type="button" onClick={addTechnology}>
-            Agregar Tecnología
-          </button>
-        </div>
-        <button type="submit" className="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300">Guardar</button>
-      </form>
+          </div>
+          <div className='mb-5' >
+            <label className="block text-sm font-medium text-gray-300">Descripción:</label>
+            <textarea
+              name="description"
+              value={data.description}
+              onChange={handleChange}
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+          </div>
+          <div className='mb-5'>
+            <label className="block mb-5 text-sm font-medium text-gray-300">Tecnologías:</label>
+            {data.technologies.map((tech, index) => (
+              <input
+                key={index}
+                type="text"
+                value={tech}
+                onChange={(e) => handleTechnologyChange(index, e.target.value)}
+                className="block mb-4 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+
+
+              />
+            ))}
+          </div>
+          <div className='mb-5'>
+            <button type="button" className="w-full bg-teal-800 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300" onClick={addTechnology}>
+              Agregar Tecnología
+            </button>
+          </div>
+          <button type="submit" className="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300">Guardar</button>
+        </form>
+      </div>
+
       <pre>{JSON.stringify(data, null, 2)}</pre>
+
     </div>
   );
 };
