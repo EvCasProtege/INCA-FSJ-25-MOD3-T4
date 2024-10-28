@@ -83,8 +83,8 @@ const RegisterBootCamp = () => {
               name="name"
               placeholder='Ej. Desarrollo Web con ReactJS'
               value={data.name}
-              onChange={handleChange}
               {...register("name", { required: "El nombre del bootcamp requerido." })}
+              onChange={handleChange}
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 
             />
@@ -97,8 +97,8 @@ const RegisterBootCamp = () => {
               name="description"
               placeholder='Descripción del Bootcamp'
               value={data.description}
-              onChange={handleChange}
               {...register("description", { required: "Debes agregar una descripción para el bootcamp" })}
+              onChange={handleChange}
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
             {errors.description && <p className="mt-2 text-sm text-red-600 text-center">{errors.description.message}</p>}
