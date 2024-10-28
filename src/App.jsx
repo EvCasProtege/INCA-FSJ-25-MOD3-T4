@@ -7,7 +7,6 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { Session } from "./components/Session";
 import RegisterBootCamp from "./components/bootcamp/RegisterBootCamp";
 import { DashboardContainer } from "./components/dashboard/DashboardContainer";
-import { UserComponent } from "./components/UserComponent";
 import { LandingPage } from "./components/landing/LandingPage";
 import EditBootCamp from "./components/bootcamp/EditBootCamp";
 import { Home } from "./components/bootcamp/Home";
@@ -45,14 +44,6 @@ export default function App() {
                             <BootcampProvider>
                                 <RegisterBootCamp />
                             </BootcampProvider>
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/user"
-                    element={
-                        <ProtectedRoute redirectTo="/login">
-                            <UserComponent />
                         </ProtectedRoute>
                     }
                 />
