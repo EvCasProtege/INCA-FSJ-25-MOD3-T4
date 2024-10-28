@@ -5,7 +5,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 // Registrar los componentes de Chart.js
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const DashboardComponent = ({ labels, counts }) => {
+export const DashboardComponent = ({ labels, counts }) => {
   const chartData = {
     labels,
     datasets: [
@@ -20,13 +20,11 @@ const DashboardComponent = ({ labels, counts }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h2 className="text-2xl font-bold mb-4">Dashboard de Tecnologías en Cursos Activos</h2>
-      <div className="w-full max-w-4xl">
-        <Bar data={chartData} options={{ scales: { y: { beginAtZero: true } } }} />
-      </div>
+    <div className="flex flex-col items-center justify-center text-white">
+        <h2 className="text-3xl font-bold text-center mb-12">Dashboard de Tecnologías en Cursos Activos</h2>
+        <div className="w-full max-w-full sm:max-w-3xl bg-gray-800 p-4 sm:p-6 rounded-lg shadow-lg">
+            <Bar data={chartData} options={{ scales: { y: { beginAtZero: true } } }} />
+        </div>
     </div>
   );
 };
-
-export default DashboardComponent;

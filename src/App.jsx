@@ -6,11 +6,12 @@ import ProtectedRoute from "./components/ProtectedRoute";
 // Components
 import { Session } from "./components/Session";
 import RegisterBootCamp from "./components/bootcamp/RegisterBootCamp";
-import DashboardContainer from "./components/dashboard/DashboardContainer";
-import UserComponent from "./components/auth/User";
+import { DashboardContainer } from "./components/dashboard/DashboardContainer";
+import { UserComponent } from "./components/UserComponent";
 import { LandingPage } from "./components/landing/LandingPage";
 import EditBootCamp from "./components/bootcamp/EditBootCamp";
-import Home from "./components/bootcamp/Home";
+import { Home } from "./components/bootcamp/Home";
+import { BootcampProvider } from "./provider/BootcampContext";
 
 export default function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,53 +25,68 @@ export default function App() {
         <Router>
             <Routes>
                 {/* Rutas Públicas */}
-                <Route path="/" element={<Session />} />
-                <Route path="/home" element={<Home  />} />
+                <Route path="/login" element={<Session />} />
 
                 {/* Rutas Protegidas */}
                 <Route
                     path="/dashboard"
                     element={
-                        <ProtectedRoute redirectTo="/">
-                            <DashboardContainer />
+                        <ProtectedRoute redirectTo="/login">
+                            <BootcampProvider>
+                                <DashboardContainer />
+                            </BootcampProvider>
                         </ProtectedRoute>
                     }
                 />
                 <Route
                     path="/registro"
                     element={
-                        <ProtectedRoute redirectTo="/">
-                            <RegisterBootCamp />
+                        <ProtectedRoute redirectTo="/login">
+                            <BootcampProvider>
+                                <RegisterBootCamp />
+                            </BootcampProvider>
                         </ProtectedRoute>
                     }
                 />
                 <Route
                     path="/user"
                     element={
-                        <ProtectedRoute redirectTo="/">
+                        <ProtectedRoute redirectTo="/login">
                             <UserComponent />
                         </ProtectedRoute>
                     }
                 />
                 <Route
-                    path="/landing"
+                    path="/inicio"
                     element={
-                        <ProtectedRoute redirectTo="/">
-                            <LandingPage />
+                        <ProtectedRoute redirectTo="/login">
+                            <BootcampProvider>
+                                <LandingPage />
+                            </BootcampProvider>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/bootcamps"
+                    element={
+                        <ProtectedRoute redirectTo="/login">
+                            <BootcampProvider>
+                                <Home />
+                            </BootcampProvider>
                         </ProtectedRoute>
                     }
                 />
                 <Route
                     path="/edit-bootcamp/:id"
                     element={
-                        <ProtectedRoute redirectTo="/">
+                        <ProtectedRoute redirectTo="/login">
                             <EditBootCamp />
                         </ProtectedRoute>
                     }
                 />
 
                 {/* Ruta para manejo de 404 */}
-                <Route path="*" element={<Navigate to="/" replace />} />
+                <Route path="*" element={<Navigate to="/login" replace />} />
             </Routes>
         </Router>
     );
