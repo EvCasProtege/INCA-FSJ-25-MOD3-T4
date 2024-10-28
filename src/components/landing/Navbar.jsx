@@ -21,9 +21,9 @@ const Navbar = () => {
                     <NavLink to="/landing" activeClassName="active-link"> <li className='p-4 border-b border-gray-600 hover:text-[#2eadaf] '>Inicio</li></NavLink>
                     <NavLink to="/registro"><li className='p-4 border-b border-gray-600 hover:bg-gray-700  hover:text-[#2eadaf]'>Usuarios</li></NavLink>
                     <NavLink to="/home"><li className='p-4 border-b border-gray-600 hover:bg-gray-700  hover:text-[#2eadaf] '>BootCamps</li></NavLink>
-                    <NavLink to="/DashboardContainer"><li className='p-4 border-b border-gray-600 hover:bg-gray-700  hover:text-[#2eadaf]'>Dashboard</li></NavLink>
-                    <NavLink to="/"><li className='p-4 border-b border-red-500 hover:bg-gray-700 hover:text-[#c9f94e] '>Cerrar Sesion</li></NavLink>
-                </ul>
+                    <NavLink to="/home"><li className='p-4 border-b border-gray-600 hover:bg-gray-700  hover:text-[#2eadaf]'>Dashboard</li></NavLink>
+                    <NavLink to="/"><li className='p-4 border-b border-red-500 hover:bg-gray-700 hover:text-[#ffffff] '>Cerrar Sesion</li></NavLink>
+                </ul>/
 
                 <div onClick={handleNav} className='block md:hidden'>
 

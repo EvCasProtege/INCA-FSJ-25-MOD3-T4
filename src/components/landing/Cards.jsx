@@ -3,7 +3,7 @@ import tecAcademyLogo from "../../assets/logo/tecacademy.png";
 export const Cards = ({ title, description, technologies }) => {
     return (
         <div className="bg-gray-700 rounded-lg overflow-hidden shadow-lg">
-            <img src={tecAcademyLogo} alt={title} className="w-full object-cover" />
+            <img src={tecAcademyLogo} alt={title} className="w-70% object-cover p-3" />
             <div className="p-6">
                 <h3 className="text-xl font-bold mb-4">{title}</h3>
                 <p className="mb-4">{description}</p>

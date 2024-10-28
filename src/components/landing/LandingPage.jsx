@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import { Hero } from "./Hero";
 import { Cards } from "./Cards";
+import {Footer} from "./Footer";
 import bootcampService from "../../services/bootcams/bootcampService";
 
 export const LandingPage = () => {
@@ -47,8 +48,12 @@ export const LandingPage = () => {
                             </div>
                         )}
                     </div>
+                    
                 </section>
+                <section><div><Footer /></div></section>
+               
             </main>
+           
         </div>
     );
 };
