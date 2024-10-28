@@ -30,7 +30,7 @@ export const Home = () => {
                         {activeBootcamps.length > 0 ? (
                             activeBootcamps.map((bootcamp) => <BootcampCard key={bootcamp.id} id={bootcamp.id} title={bootcamp.name} description={bootcamp.description} technologies={bootcamp.technologies} />)
                         ) : (
-                            <p className="text-center text-white">No hay bootcamps disponibles.</p>
+                            <p className="text-center text-white ">No hay bootcamps disponibles...</p>
                         )}
                     </div>
                 </div>

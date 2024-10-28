@@ -1,14 +1,29 @@
 import { useState } from 'react';
+import { useForm } from "react-hook-form";
 import bootcampService from '../../services/bootcams/bootcampService';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { AiOutlineDelete } from "react-icons/ai";
+import { Navbar } from '../landing/Navbar';
+import { UserComponent } from '../UserComponent';
+import { Footer } from '../landing/Footer';
 
 const RegisterBootCamp = () => {
-  // Estado inicial con el JSON proporcionado
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+} = useForm();
+
   const [data, setData] = useState({
-    name: 'nombre',
-    description: 'Descripción',
-    technologies: ['tecnología1', 'tecnología2'],
+    name: '',
+    description: '',
+    technologies: [''],
   });
+
+  const navigate = useNavigate();
+
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,74 +49,90 @@ const RegisterBootCamp = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const removeTechnology = (index) => {
+    const newTechnologies = data.technologies.filter((_, i) => i !== index);
+    setData((prevData) => ({
+      ...prevData,
+      technologies: newTechnologies,
+    }));
+  };
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    console.log('Datos enviados:', data);
-    // Aquí puedes hacer algo con los datos, como enviarlos a una API
-    const response = await bootcampService.createBootcamp(data);
-    console.log(response)
-    if (response.status === 201) {
-      navigator.navigate('/home');
-    } else {
-      alert('Error al crear bootcamp')
+    setError('');
+    try {
+      await bootcampService.createBootcamp(data);
+      navigate('/bootcamps');
+    } catch (err) {
+      setError(err.message);
     }
   };
 
   return (
-    <div className="min-h-screen  bg-gray-900 text-white ">
-      <div className="">
-        <div className='p-6'>
-          <nav className="hidden md:flex space-x-4">
-            <Link to="/inicio" className="text-white hover:text-[#2eadaf] px-3 py-2 rounded-md text-sm font-medium" activeClassName="bg-gray-700 text-[#2eadaf]">Home</Link>
-          </nav>
-          <h2 className='text-3xl font-bold text-center mb-12'>Datos del Proyecto</h2>
-        </div>
-        <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
+    <div className="min-h-screen bg-gray-900 text-white">
+      <Navbar />
+      <UserComponent />
+      <div className="py-20 bg-gray-800">
+        <h2 className='text-3xl font-bold text-center mb-12'>Añadir un Nuevo Bootcamp</h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm mx-auto">
           <div className='mb-5'>
             <label className="block text-sm font-medium text-gray-300">Nombre:</label>
             <input
+              id='name'
               type="text"
               name="name"
+              placeholder='Ej. Desarrollo Web con ReactJS'
               value={data.name}
               onChange={handleChange}
+              {...register("name", { required: "El nombre del bootcamp requerido." })}
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 
             />
+            {errors.name && <p className="mt-2 text-sm text-red-600 text-center">{errors.name.message}</p>}
           </div>
           <div className='mb-5' >
             <label className="block text-sm font-medium text-gray-300">Descripción:</label>
             <textarea
+              id='description'
               name="description"
+              placeholder='Descripción del Bootcamp'
               value={data.description}
               onChange={handleChange}
+              {...register("description", { required: "Debes agregar una descripción para el bootcamp" })}
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
+            {errors.description && <p className="mt-2 text-sm text-red-600 text-center">{errors.description.message}</p>}
           </div>
-          <div className='mb-5'>
+          <div className="mb-5">
             <label className="block mb-5 text-sm font-medium text-gray-300">Tecnologías:</label>
             {data.technologies.map((tech, index) => (
-              <input
-                key={index}
-                type="text"
-                value={tech}
-                onChange={(e) => handleTechnologyChange(index, e.target.value)}
-                className="block mb-4 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
-
-              />
+                <div key={index} className="flex items-center mb-4">
+                    <input
+                        id='technology'
+                        type="text"
+                        placeholder='Ej. JavaScript'
+                        value={tech}
+                        {...register("technology", { required: "Debes agregar al menos una tecnología." })}
+                        onChange={(e) => handleTechnologyChange(index, e.target.value)}
+                        className="flex-grow p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                    <button type="button" onClick={() => removeTechnology(index)} className="ml-2 text-red-500 hover:text-red-700" aria-label="Eliminar tecnología">
+                        <AiOutlineDelete size={20} />
+                    </button>
+                </div>
             ))}
-          </div>
-          <div className='mb-5'>
-            <button type="button" className="w-full bg-teal-800 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300" onClick={addTechnology}>
-              Agregar Tecnología
+            <button type="button" className="mt-2 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2eadaf]" onClick={addTechnology}>
+                Añadir tecnología
             </button>
+            {errors.technology && <p className="mt-2 text-sm text-red-600 text-center">{errors.technology.message}</p>}
           </div>
-          <button type="submit" className="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300">Guardar</button>
+          <div>
+            {error && <div className="mt-2 text-sm text-red-600 text-center">{error}</div>}
+            <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#2eadaf] hover:bg-[#1c8a8c] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2eadaf]">Crear Bootcamp</button>
+          </div>
         </form>
       </div>
-
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-
+      <Footer />
     </div>
   );
 };

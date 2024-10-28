@@ -31,19 +31,19 @@ import { BootcampContext } from '../../provider/BootcampContext';
        </div>
         <div className='lg:col-span-2 flex justify-between mt:6'>
           <div>
-            <h6 className='font-medium text-gray-400'> Bootcamps</h6>
+            <h6 className='font-bold text-gray-400'>Nuestros bootcamps</h6>
             <ul>
               { activeBootcamps.length > 0 ? (
                   activeBootcamps.map((bootcamps) => (
                     <li key={bootcamps.id} className='py-2 text-sm'>{bootcamps.name}</li>
                   ))
               ) : (
-                  <p className="text-center text-white">No hay bootcamps disponibles.</p>
+                  <p className="text-center text-white">No hay bootcamps disponibles...</p>
               )}
             </ul>
           </div>
           <div>
-            <h6 className='font-medium text-gray-400'>Explore</h6>
+            <h6 className='font-bold text-gray-400'>Explore</h6>
             <ul>
               <li className='py-2 text-sm'>Design</li>
               <li className='py-2 text-sm'>Prototype</li>
@@ -56,7 +56,7 @@ import { BootcampContext } from '../../provider/BootcampContext';
 
 
           <div>
-            <h6 className='font-medium text-gray-400'> Recursos</h6>
+            <h6 className='font-bold text-gray-400'> Recursos</h6>
             <ul>
               <li className='py-2 text-sm'>Bloq</li>
               <li className='py-2 text-sm'>F&Q</li>
