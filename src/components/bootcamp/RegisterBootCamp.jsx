@@ -116,7 +116,7 @@ const RegisterBootCamp = () => {
                   type="text"
                   placeholder='Ej. JavaScript'
                   value={tech}
-                  {...register(`technologies[${index}]`, { required: "Debes agregar al menos una tecnología." })}
+                  {...register("technology", { required: "Debes agregar al menos una tecnología." })}
                   onChange={(e) => handleTechnologyChange(index, e.target.value)}
                   className="flex-grow p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
@@ -128,7 +128,7 @@ const RegisterBootCamp = () => {
             <button type="button" className="mt-2 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2eadaf]" onClick={addTechnology}>
               Añadir tecnología
             </button>
-            {errors.technologies && <p className="mt-2 text-sm text-red-600 text-center">{errors.technologies.message}</p>}
+            {errors.technology && <p className="mt-2 text-sm text-red-600 text-center">{errors.technology.message}</p>}
           </div>
           <div>
             {error && <div className="mt-2 text-sm text-red-600 text-center">{error}</div>}
