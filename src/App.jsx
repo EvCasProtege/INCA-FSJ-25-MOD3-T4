@@ -1,35 +1,86 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { tokenService } from "./services/auth/tokenService";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-function App() {
-  const [count, setCount] = useState(0)
+// Components
+import { Session } from "./components/Session";
+import RegisterBootCamp from "./components/bootcamp/RegisterBootCamp";
+import { DashboardContainer } from "./components/dashboard/DashboardContainer";
+import { LandingPage } from "./components/landing/LandingPage";
+import EditBootCamp from "./components/bootcamp/EditBootCamp";
+import { Home } from "./components/bootcamp/Home";
+import { BootcampProvider } from "./provider/BootcampContext";
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+export default function App() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const token = tokenService.getToken();
+        setIsLoggedIn(!!token);
+    }, []);
+
+    return (
+        <Router>
+            <Routes>
+                {/* Rutas Públicas */}
+                <Route path="/login" element={<Session />} />
+
+                {/* Rutas Protegidas */}
+                <Route
+                    path="/dashboard"
+                    element={
+                        <ProtectedRoute redirectTo="/login">
+                            <BootcampProvider>
+                                <DashboardContainer />
+                            </BootcampProvider>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/registro"
+                    element={
+                        <ProtectedRoute redirectTo="/login">
+                            <BootcampProvider>
+                                <RegisterBootCamp />
+                            </BootcampProvider>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/inicio"
+                    element={
+                        <ProtectedRoute redirectTo="/login">
+                            <BootcampProvider>
+                                <LandingPage />
+                            </BootcampProvider>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/bootcamps"
+                    element={
+                        <ProtectedRoute redirectTo="/login">
+                            <BootcampProvider>
+                                <Home />
+                            </BootcampProvider>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/edit-bootcamp/:id"
+                    element={
+                        <ProtectedRoute redirectTo="/login">
+                            <BootcampProvider>
+                                <EditBootCamp />
+                            </BootcampProvider>                           
+                        </ProtectedRoute>
+                    }
+                />
+
+                {/* Ruta para manejo de 404 */}
+                <Route path="*" element={<Navigate to="/login" replace />} />
+            </Routes>
+        </Router>
+    );
 }
-
-export default App
